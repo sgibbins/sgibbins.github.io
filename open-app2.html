@@ -1,0 +1,48 @@
+<script>
+    var webLink = "https:\/\/partners.uber.com\/p3\/drivers\/profile\/documents";
+    var intentLink = "intent:\/\/?action=home#Intent;scheme=uberpartner;package=com.ubercab.driver;S.browser_fallback_url=https:\/\/partners.uber.com\/p3\/drivers\/profile\/documents;end";
+    var iosLink = "uberpartner:\/\/?action=home";
+    var androidLink = "uberpartner:\/\/?action=home";
+
+    function tryWebkitApproach(link) {
+        document.location = link;
+        timer = setTimeout(function () {
+            document.location = webLink;
+        }, 2500);
+    }
+
+    function tryIframeApproach(link) {
+        var iframe = document.createElement("iframe");
+        iframe.style.border = "none";
+        iframe.style.width = "1px";
+        iframe.style.height = "1px";
+        iframe.onload = function () {
+            document.location = webLink;
+        };
+        iframe.src = link;
+        document.body.appendChild(iframe);
+    }
+
+    alert(navigator.userAgent);
+
+    if (navigator.userAgent.match(/(android)/i)) {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.match(/firefox/) || ua.match(/applewebkit/)) {
+            setTimeout(function() {
+                tryIframeApproach(androidLink);
+            }, 100);
+        } else {
+            tryWebkitApproach(androidLink);
+            setTimeout(function () {
+                tryIframeApproach(androidLink);
+            }, 1500);
+        }
+    } else if (navigator.userAgent.match(/(iPod|iPhone|iPad)/i)) {
+        window.location = iosLink;
+        setTimeout(function() {
+            window.location = webLink;
+        }, 3000);
+    } else {
+        window.location = webLink;
+    }
+  </script>
