@@ -1,0 +1,33 @@
+<script>
+    var webLink = "https:\/\/partners.uber.com";
+    var iosLink = "uberpartner:\/\/tabs\/earnings?view=promos-hub";
+    var androidLink = "uberpartner:\/\/tabs\/earnings?view=promos-hub";
+    var carbonIosLink = "uberdriver:\/\/planning_hub?type=promo_calendar";
+    var carbonAndroidLink = "uberdriver:\/\/planning_hub?type=promo_calendar";
+
+    var webLink = "https:\/\/www.uber.com\/drive\/basics\/";
+    var iosLink = "uberdriver:\/\/planning_hub?type=promo_calendar";
+    var androidLink = "uberdriver:\/\/planning_hub?type=promo_calendar";
+
+    function tryWindowOnly(link) {
+        window.location = link;
+    }
+
+    window.onload = function() {
+        if (navigator.userAgent.match(/(android)/i)) {
+            tryWindowOnly(androidLink);
+
+            setTimeout(function() {
+                tryWindowOnly(webLink);
+            }, 500);
+        } else if (navigator.userAgent.match(/(iPod|iPhone|iPad)/i)) {
+            tryWindowOnly(iosLink);
+
+            setTimeout(function() {
+                tryWindowOnly(webLink);
+            }, 500);
+        } else {
+            tryWindowOnly(webLink);
+        }
+    }
+</script>
